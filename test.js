@@ -12,7 +12,7 @@ function expect(src) {
 
       if (res != val) {
         console.error('Assertion failed', src, res, '!=', val)
-        exit(1)
+        process.exit(1)
       }
     }
   }

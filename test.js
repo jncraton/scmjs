@@ -20,3 +20,4 @@ function expect(src) {
 
 expect('(+ 1 1)').toBe(2)
 expect('(+ 2 2)').toBe(4)
+expect('(+ 2 (+ 1 2))').toBe(5)

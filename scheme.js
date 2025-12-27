@@ -24,19 +24,16 @@ scheme.eval = (src) => {
       return +ast
     }
 
-    return ast.map(expr => {
-      if (Array.isArray(expr)) {
-        if (env[expr[0]]) {
-          // Found a valid name in the environment
-          if (typeof env[expr[0]] == 'function') {
-            return env[expr[0]](...expr.slice(1).map(e => eval(e, env)))
-          }
-        } else {
-          return eval(expr, env)
+    if (Array.isArray(ast)) {
+      if (env[ast[0]]) {
+        // Found a valid name in the environment
+        if (typeof env[ast[0]] == 'function') {
+          return env[ast[0]](...ast.slice(1).map(e => eval(e, env)))
         }
-        return eval(expr, Object.create(ast))
+      } else {
+        return ast.map(e => eval(e, env))
       }
-    })
+    }
   }
 
   const tokens = [...src.matchAll(/(\d+|[\(\)\+\-\*\\])/g)].map(s => s[0])

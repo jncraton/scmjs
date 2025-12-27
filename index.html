@@ -10,6 +10,11 @@
   </head>
 
   <body>
-    <script></script>
+    <textarea id=src></textarea>
+    <script>
+    src.addEventListener('input', () => {
+      scheme.eval(src.textContent)
+    })
+    </script>
   </body>
 </html>

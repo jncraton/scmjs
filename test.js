@@ -12,9 +12,11 @@ function expect(src) {
 
       if (res != val) {
         console.error('Assertion failed', src, res, '!=', val)
+        exit(1)
       }
     }
   }
 }
 
 expect('(+ 1 1)').toBe(2)
+expect('(+ 2 2)').toBe(4)

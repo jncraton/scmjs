@@ -1,8 +1,6 @@
 const scheme = {}
 
 scheme.eval = (src) => {
-  const tokens = [...src.matchAll(/(\d+|[\(\)\+\-\*\\])/g)].map(s => s[0])
-
   const parse = (tokens, tree=[]) => {
     let token = tokens.shift()
 
@@ -17,5 +15,6 @@ scheme.eval = (src) => {
     }
   }
 
+  const tokens = [...src.matchAll(/(\d+|[\(\)\+\-\*\\])/g)].map(s => s[0])
   const ast = parse(tokens)
 }

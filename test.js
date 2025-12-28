@@ -48,6 +48,12 @@ expect(`
 (display (+ 1 1))
 (display (+ 1 1))`).toBe(22)
 
+// Newlines
+expect(`
+(display (+ 1 1))
+(newline)
+(display (+ 1 1))`).toBe('2\n2')
+
 // Define
 expect(`
 (define x 3)

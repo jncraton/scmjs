@@ -22,36 +22,36 @@ scheme.eval = src => {
   let stdout = ''
   const globalEnv = {
     ['+'](a, b) {
-      return eval(a, this) + eval(b, this)
+      return ev(a, this) + ev(b, this)
     },
     ['-'](a, b) {
-      return b === undefined ? -eval(a, this) : eval(a, this) - eval(b, this)
+      return b === undefined ? -ev(a, this) : ev(a, this) - ev(b, this)
     },
     ['*'](a, b) {
-      return eval(a, this) * eval(b, this)
+      return ev(a, this) * ev(b, this)
     },
     ['='](a, b) {
-      return eval(a, this) == eval(b, this)
+      return ev(a, this) == ev(b, this)
     },
     ['>'](a, b) {
-      return eval(a, this) > eval(b, this)
+      return ev(a, this) > ev(b, this)
     },
     ['<'](a, b) {
-      return eval(a, this) < eval(b, this)
+      return ev(a, this) < ev(b, this)
     },
     newline() {
       stdout += '\n'
     },
     display(output) {
-      output = eval(output, this)
+      output = ev(output, this)
       if (output === true) output = '#t'
       if (output === false) output = '#f'
       stdout += output
     },
     cond(...matches) {
       for (match of matches) {
-        if (eval(match[0], this)) {
-          return eval(match[1], this)
+        if (ev(match[0], this)) {
+          return ev(match[1], this)
         }
       }
     },
@@ -59,24 +59,24 @@ scheme.eval = src => {
       const isProcedure = Array.isArray(name)
 
       if (!isProcedure) {
-        this[name] = eval(value, this)
+        this[name] = ev(value, this)
       } else {
         this[name[0]] = (...args) => {
-          args = args.map(a => eval(a, this))
+          args = args.map(a => ev(a, this))
 
           const frame = Object.create(this)
           name.slice(1).forEach((argName, i) => {
             frame[argName] = args[i]
           })
 
-          const result = eval(value, frame)
+          const result = ev(value, frame)
           return Array.isArray(result) ? result.at(-1) : result
         }
       }
     },
   }
 
-  const eval = (ast, env = globalEnv) => {
+  const ev = (ast, env = globalEnv) => {
     if (typeof ast == 'string') {
       if (env[ast] !== undefined) {
         return env[ast]
@@ -87,13 +87,13 @@ scheme.eval = src => {
     if (typeof env[ast[0]] == 'function') {
       return env[ast[0]](...ast.slice(1))
     } else {
-      return ast.map(e => eval(e, env))
+      return ast.map(e => ev(e, env))
     }
   }
 
   const tokens = [...src.matchAll(/(\-?\d+|[\(\)\+\-\*\\\=\<\>]|\w+)/gm)].map(s => s[0])
   const ast = parse(tokens)
-  const result = eval(ast)
+  const result = ev(ast)
 
   return stdout
 }

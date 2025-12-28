@@ -77,6 +77,11 @@ expect(`
 (display (+ 2 (+ x 1)))
 `).toBe(6)
 
+expect(`
+(define n 5)
+(display (- 10 n))
+`).toBe(5)
+
 // Functions
 expect(`
 (define (double x)

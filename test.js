@@ -36,3 +36,8 @@ expect(`
 (define x 3)
 (display x)
 `).toBe(3)
+
+expect(`
+(define x 3)
+(display (+ 2 (+ x 1)))
+`).toBe(6)

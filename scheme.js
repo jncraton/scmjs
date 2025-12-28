@@ -56,21 +56,15 @@ scheme.eval = src => {
     define(name, value) {
       if (Array.isArray(name)) {
         // This is a procedure definition
-        let argNames = name.slice(1)
-        let impl = value
-        name = name[0]
-
-        callerFrame = this
-
-        this[name] = function (...args) {
+        this[name[0]] = (...args) => {
           args = args.map(a => eval(a, this))
 
-          const frame = Object.create(callerFrame)
-          argNames.forEach((argName, i) => {
+          const frame = Object.create(this)
+          name.slice(1).forEach((argName, i) => {
             frame[argName] = args[i]
           })
 
-          const result = eval(impl, frame)
+          const result = eval(value, frame)
           return Array.isArray(result) ? result.at(-1) : result
         }
       } else {

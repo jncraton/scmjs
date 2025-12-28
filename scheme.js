@@ -54,8 +54,11 @@ scheme.eval = src => {
       }
     },
     define(name, value) {
-      if (Array.isArray(name)) {
-        // This is a procedure definition
+      const isProcedure = Array.isArray(name)
+
+      if (!isProcedure) {
+        this[name] = eval(value, this)
+      } else {
         this[name[0]] = (...args) => {
           args = args.map(a => eval(a, this))
 
@@ -67,8 +70,6 @@ scheme.eval = src => {
           const result = eval(value, frame)
           return Array.isArray(result) ? result.at(-1) : result
         }
-      } else {
-        this[name] = eval(value, this)
       }
     },
   }

@@ -87,11 +87,7 @@ scheme.eval = src => {
       return ast.match(/\d+/) ? +ast : ast
     }
 
-    if (ast[0] == 'define') {
-      return env[ast[0]](...ast.slice(1))
-    } else if (ast[0] == 'cond') {
-      return env[ast[0]](...ast.slice(1))
-    } else if (typeof env[ast[0]] == 'function') {
+    if (typeof env[ast[0]] == 'function') {
       return env[ast[0]](...ast.slice(1))
     } else {
       return ast.map(e => eval(e, env))

@@ -33,15 +33,10 @@ scheme.eval = (src) => {
       return +ast
     }
 
-    if (Array.isArray(ast)) {
-      if (env[ast[0]]) {
-        // Found a valid name in the environment
-        if (typeof env[ast[0]] == 'function') {
-          return env[ast[0]](...ast.slice(1).map(e => eval(e, env)))
-        }
-      } else {
-        return ast.map(e => eval(e, env))
-      }
+    if (typeof env[ast[0]] == 'function') {
+      return env[ast[0]](...ast.slice(1).map(e => eval(e, env)))
+    } else {
+      return ast.map(e => eval(e, env))
     }
   }
 

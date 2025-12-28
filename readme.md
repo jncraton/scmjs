@@ -14,6 +14,8 @@ A simple [Scheme](<https://en.wikipedia.org/wiki/Scheme_(programming_language)>)
 
 ## Supported Features
 
+Currently, only a subset of Scheme is supported.
+
 - [ ] Literals
   - [x] Integer
   - [x] Boolean

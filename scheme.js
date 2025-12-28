@@ -39,7 +39,9 @@ scheme.eval = src => {
     ['<'](a, b) {
       return eval(a, this) < eval(b, this)
     },
-    newline: () => (stdout += '\n'),
+    newline() {
+      stdout += '\n'
+    },
     display(output) {
       output = eval(output, this)
       if (output === true) output = '#t'

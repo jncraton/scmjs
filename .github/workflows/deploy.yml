@@ -26,6 +26,9 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v5
 
+      - name: Build Site
+        run: make
+
       - name: Setup Pages
         uses: actions/configure-pages@v5
 

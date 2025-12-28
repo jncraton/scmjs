@@ -20,7 +20,7 @@ A simple [Scheme](<https://en.wikipedia.org/wiki/Scheme_(programming_language)>)
   - [x] `display`
   - [x] `newline`
   - [x] `+`
-  - [ ] `-`
+  - [x] `-`
   - [x] `*`
   - [ ] `/`
   - [x] `=`

@@ -22,6 +22,10 @@ function expect(src) {
 expect('(display (+ 1 1))').toBe(2)
 expect('(display (+ 2 2))').toBe(4)
 
+// Subtraction
+expect('(display (- 2 1))').toBe(1)
+expect('(display (- 2 2))').toBe(0)
+
 // Multiplication
 expect('(display (* 1 1))').toBe(1)
 expect('(display (* 4 5))').toBe(20)
@@ -29,6 +33,10 @@ expect('(display (* 4 5))').toBe(20)
 // Negative numbers
 expect('(display (-1))').toBe(-1)
 expect('(display (+ -2 1))').toBe(-1)
+
+// Unary negation
+expect('(display (- 1))').toBe(-1)
+expect('(display (- (+ 1 1)))').toBe(-2)
 
 // Nested expressions
 expect('(display (+ 2 (+ 1 2)))').toBe(5)

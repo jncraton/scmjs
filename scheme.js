@@ -22,6 +22,7 @@ scheme.eval = src => {
   let stdout = ''
   const globalEnv = {
     '+': (a, b) => a + b,
+    '-': (a, b) => (b === undefined ? -a : a - b),
     '*': (a, b) => a * b,
     '=': (a, b) => a == b,
     '>': (a, b) => a > b,

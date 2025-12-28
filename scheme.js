@@ -61,7 +61,7 @@ scheme.eval = src => {
       if (!isProcedure) {
         this[name] = ev(value, this)
       } else {
-        this[name[0]] = function(...args) {
+        this[name[0]] = function (...args) {
           args = args.map(a => ev(a, this))
 
           const frame = Object.create(this)

@@ -59,7 +59,7 @@ scheme.eval = src => {
           return Array.isArray(result) ? result.at(-1) : result
         }
       } else {
-        this[name] = value
+        this[name] = eval(value, this)
       }
     },
   }
@@ -73,7 +73,7 @@ scheme.eval = src => {
     }
 
     if (ast[0] == 'define') {
-      return env[ast[0]](...ast.slice(1).map(e => +e || e))
+      return env[ast[0]](...ast.slice(1))
     } else if (ast[0] == 'cond') {
       return env[ast[0]](...ast.slice(1))
     } else if (typeof env[ast[0]] == 'function') {

@@ -26,7 +26,25 @@ scheme.eval = (src) => {
       stdout += output
     },
     define (name, value) {
-      this[name] = value
+      if (Array.isArray(name)) {
+        // This is a procedure definition
+        let argNames = name.slice(1)
+        let impl = value
+        name = name[0]
+
+        callerFrame = this
+
+        this[name] = function(...args) {
+          const frame = Object.create(callerFrame)
+          argNames.forEach((argName, i) => {
+            frame[argName] = args[i]
+          })
+
+          return eval(impl, frame)
+        }
+      } else {
+        this[name] = value
+      }
     }
   }
 
@@ -39,7 +57,9 @@ scheme.eval = (src) => {
       return ast.match(/\d+/) ? +ast : ast
     }
 
-    if (typeof env[ast[0]] == 'function') {
+    if (ast[0] == 'define') {
+      return env[ast[0]](...ast.slice(1).map(e => +e || e))
+    } else if (typeof env[ast[0]] == 'function') {
       return env[ast[0]](...ast.slice(1).map(e => eval(e, env)))
     } else {
       return ast.map(e => eval(e, env))

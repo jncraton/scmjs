@@ -41,3 +41,11 @@ expect(`
 (define x 3)
 (display (+ 2 (+ x 1)))
 `).toBe(6)
+
+// Functions
+expect(`
+(define (double x)
+  (+ x x))
+
+(display (double 3))
+`).toBe(6)

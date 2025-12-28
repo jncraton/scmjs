@@ -21,14 +21,27 @@ scheme.eval = src => {
 
   let stdout = ''
   const globalEnv = {
-    '+': (a, b) => a + b,
-    '-': (a, b) => (b === undefined ? -a : a - b),
-    '*': (a, b) => a * b,
-    '=': (a, b) => a == b,
-    '>': (a, b) => a > b,
-    '<': (a, b) => a < b,
+    ['+'](a, b) {
+      return eval(a, this) + eval(b, this)
+    },
+    ['-'](a, b) {
+      return b === undefined ? -eval(a, this) : eval(a, this) - eval(b, this)
+    },
+    ['*'](a, b) {
+      return eval(a, this) * eval(b, this)
+    },
+    ['='](a, b) {
+      return eval(a, this) == eval(b, this)
+    },
+    ['>'](a, b) {
+      return eval(a, this) > eval(b, this)
+    },
+    ['<'](a, b) {
+      return eval(a, this) < eval(b, this)
+    },
     newline: () => (stdout += '\n'),
-    display: output => {
+    display(output) {
+      output = eval(output, this)
       if (output === true) output = '#t'
       if (output === false) output = '#f'
       stdout += output
@@ -50,6 +63,8 @@ scheme.eval = src => {
         callerFrame = this
 
         this[name] = function (...args) {
+          args = args.map(a => eval(a, this))
+
           const frame = Object.create(callerFrame)
           argNames.forEach((argName, i) => {
             frame[argName] = args[i]
@@ -77,7 +92,7 @@ scheme.eval = src => {
     } else if (ast[0] == 'cond') {
       return env[ast[0]](...ast.slice(1))
     } else if (typeof env[ast[0]] == 'function') {
-      return env[ast[0]](...ast.slice(1).map(e => eval(e, env)))
+      return env[ast[0]](...ast.slice(1))
     } else {
       return ast.map(e => eval(e, env))
     }

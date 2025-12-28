@@ -23,7 +23,10 @@ scheme.eval = src => {
   const globalEnv = {
     '+': (a, b) => a + b,
     '*': (a, b) => a * b,
+    '=': (a, b) => a == b,
     display: output => {
+      if (output === true) output = '#t'
+      if (output === false) output = '#f'
       stdout += output
     },
     define(name, value) {
@@ -67,7 +70,7 @@ scheme.eval = src => {
     }
   }
 
-  const tokens = [...src.matchAll(/([\(\)\+\-\*\\]|\d+|\w+)/gm)].map(s => s[0])
+  const tokens = [...src.matchAll(/([\(\)\+\-\*\\\=]|\d+|\w+)/gm)].map(s => s[0])
   const ast = parse(tokens)
   const result = eval(ast)
 

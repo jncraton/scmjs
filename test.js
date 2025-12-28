@@ -7,14 +7,14 @@ const e = globalThis.scheme.eval
 
 function expect(src) {
   return {
-    toBe: (val) => {
+    toBe: val => {
       const res = e(src)
 
       if (res != val) {
         console.error('Assertion failed', src, res, '!=', val)
         process.exit(1)
       }
-    }
+    },
   }
 }
 

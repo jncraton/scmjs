@@ -15,9 +15,14 @@ scheme.eval = (src) => {
     }
   }
 
+  let stdout = ""
   const globalEnv = {
     '+': (a, b) => a + b,
+    display: output => {
+      stdout += output
+    }
   }
+
 
   const eval = (ast, env=globalEnv) => {
     if (typeof ast == 'string') {
@@ -36,9 +41,9 @@ scheme.eval = (src) => {
     }
   }
 
-  const tokens = [...src.matchAll(/(\d+|[\(\)\+\-\*\\])/g)].map(s => s[0])
+  const tokens = [...src.matchAll(/([\(\)\+\-\*\\]|\d+|\w+)/g)].map(s => s[0])
   const ast = parse(tokens)
   const result = eval(ast)
 
-  return result
+  return stdout
 }

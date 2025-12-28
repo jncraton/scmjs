@@ -11,7 +11,7 @@ A simple [Scheme](<https://en.wikipedia.org/wiki/Scheme_(programming_language)>)
 ## Supported Features
 
 - [x] Numeric values
-- Built-in functions
+- [ ] Built-in functions
   - [x] `define`
     - [x] Numeric literals
     - [x] Procedures

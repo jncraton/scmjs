@@ -8,6 +8,10 @@ A simple [Scheme](<https://en.wikipedia.org/wiki/Scheme_(programming_language)>)
 
 [Playground](https://jncraton.github.io/scmjs/)
 
+## Examples
+
+- [Fibonacci](https://jncraton.github.io/scmjs/#;UyouSlayUtJISU3LzEtV0EjLTFLI04zJU1DQSM7PSwExgEwNW4U8BQNNIEIWMNQEIqhAak4xULc2xAANXbAsVA4OEHJGmmAQkxeTp5GSWVyQk1gJkQVr0shLLc8BukYTQ9YAJK0EAA==)
+
 ## Supported Features
 
 - [ ] Literals

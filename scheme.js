@@ -2,11 +2,15 @@ const scheme = {}
 
 scheme.eval = (src) => {
   const parse = (tokens, tree=[]) => {
+    if (tokens.length == 0) {
+      return tree
+    }
+
     let token = tokens.shift()
 
     if (token == '(') {
       tree.push(parse(tokens))
-      return tree
+      return tree.concat(parse(tokens))
     } else if (token == ')') {
       return tree
     } else {

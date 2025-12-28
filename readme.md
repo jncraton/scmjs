@@ -5,3 +5,5 @@
 [![Test](https://github.com/jncraton/scmjs/actions/workflows/deploy.yml/badge.svg)](https://github.com/jncraton/scmjs/actions/workflows/deploy.yml)
 
 A simple [Scheme](<https://en.wikipedia.org/wiki/Scheme_(programming_language)>) interpreter in pure JavaScript
+
+[Playground](https://jncraton.github.io/scmjs/)

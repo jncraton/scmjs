@@ -64,3 +64,12 @@ expect(`
 
 (display (square (double 5)))
 `).toBe(100)
+
+expect(`
+(define (quadruple x)
+  ((define (double x)
+    (+ x x))
+  (double (double x))))
+
+(display (quadruple 5))
+`).toBe(20)

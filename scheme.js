@@ -41,7 +41,8 @@ scheme.eval = src => {
             frame[argName] = args[i]
           })
 
-          return eval(impl, frame)
+          const result = eval(impl, frame)
+          return Array.isArray(result) ? result.at(-1) : result
         }
       } else {
         this[name] = value

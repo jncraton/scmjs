@@ -10,7 +10,9 @@ A simple [Scheme](<https://en.wikipedia.org/wiki/Scheme_(programming_language)>)
 
 ## Supported Features
 
-- [x] Numeric values
+- [ ] Literals
+  - [x] Integer
+  - [x] Boolean
 - [ ] Built-in functions
   - [x] `define`
     - [x] Numeric literals

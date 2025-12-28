@@ -1,3 +1,3 @@
-# SchemeJS
+# ScmJS
 
-A simple scheme interpretter written in pure JavaScript
+A simple scheme interpreter in pure JavaScript

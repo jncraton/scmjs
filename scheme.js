@@ -1,7 +1,7 @@
 const scheme = {}
 
-scheme.eval = (src) => {
-  const parse = (tokens, tree=[]) => {
+scheme.eval = src => {
+  const parse = (tokens, tree = []) => {
     if (tokens.length == 0) {
       return tree
     }
@@ -19,14 +19,14 @@ scheme.eval = (src) => {
     }
   }
 
-  let stdout = ""
+  let stdout = ''
   const globalEnv = {
     '+': (a, b) => a + b,
     '*': (a, b) => a * b,
     display: output => {
       stdout += output
     },
-    define (name, value) {
+    define(name, value) {
       if (Array.isArray(name)) {
         // This is a procedure definition
         let argNames = name.slice(1)
@@ -35,7 +35,7 @@ scheme.eval = (src) => {
 
         callerFrame = this
 
-        this[name] = function(...args) {
+        this[name] = function (...args) {
           const frame = Object.create(callerFrame)
           argNames.forEach((argName, i) => {
             frame[argName] = args[i]
@@ -46,11 +46,10 @@ scheme.eval = (src) => {
       } else {
         this[name] = value
       }
-    }
+    },
   }
 
-
-  const eval = (ast, env=globalEnv) => {
+  const eval = (ast, env = globalEnv) => {
     if (typeof ast == 'string') {
       if (env[ast] !== undefined) {
         return env[ast]

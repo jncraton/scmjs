@@ -35,6 +35,14 @@ expect('(display (* (+ 2 3) (+ 4 5)))').toBe(45)
 expect('(display (= 1 1))').toBe('#t')
 expect('(display (= 1 2))').toBe('#f')
 
+// Greater than and less than
+expect('(display (< 1 1))').toBe('#f')
+expect('(display (> 1 1))').toBe('#f')
+expect('(display (< 1 2))').toBe('#t')
+expect('(display (> 1 2))').toBe('#f')
+expect('(display (< 2 1))').toBe('#f')
+expect('(display (> 2 1))').toBe('#t')
+
 // Multiple expressions
 expect(`
 (display (+ 1 1))

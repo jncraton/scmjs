@@ -22,6 +22,7 @@ scheme.eval = (src) => {
   let stdout = ""
   const globalEnv = {
     '+': (a, b) => a + b,
+    '*': (a, b) => a * b,
     display: output => {
       stdout += output
     },

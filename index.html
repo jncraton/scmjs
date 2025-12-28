@@ -11,9 +11,10 @@
 
   <body>
     <textarea id="src"></textarea>
+    <output id="result"></output>
     <script>
       src.addEventListener('input', () => {
-        scheme.eval(src.value)
+        result.textContent=scheme.eval(src.value)
       })
     </script>
   </body>

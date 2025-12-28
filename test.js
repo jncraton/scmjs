@@ -26,6 +26,10 @@ expect('(display (+ 2 2))').toBe(4)
 expect('(display (* 1 1))').toBe(1)
 expect('(display (* 4 5))').toBe(20)
 
+// Negative numbers
+expect('(display (-1))').toBe(-1)
+expect('(display (+ -2 1))').toBe(-1)
+
 // Nested expressions
 expect('(display (+ 2 (+ 1 2)))').toBe(5)
 expect('(display (+ (+ 2 3) (+ 4 5)))').toBe(14)

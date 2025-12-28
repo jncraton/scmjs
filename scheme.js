@@ -73,7 +73,7 @@ scheme.eval = src => {
     }
   }
 
-  const tokens = [...src.matchAll(/([\(\)\+\-\*\\\=\<\>]|\d+|\w+)/gm)].map(s => s[0])
+  const tokens = [...src.matchAll(/(\-?\d+|[\(\)\+\-\*\\\=\<\>]|\w+)/gm)].map(s => s[0])
   const ast = parse(tokens)
   const result = eval(ast)
 

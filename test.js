@@ -54,3 +54,13 @@ expect(`
 
 (display (double 3))
 `).toBe(6)
+
+expect(`
+(define (double x)
+  (+ x x))
+
+(define (square x)
+  (* x x))
+
+(display (square (double 5)))
+`).toBe(100)

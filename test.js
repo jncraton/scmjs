@@ -73,3 +73,16 @@ expect(`
 
 (display (quadruple 5))
 `).toBe(20)
+
+// Confirm that `double` only within `quadruple`
+expect(`
+((define (double x)
+  (x)))
+
+(define (quadruple x)
+  ((define (double x)
+    (+ x x))
+  (double (double x))))
+
+(display (double 5))
+`).toBe(5)

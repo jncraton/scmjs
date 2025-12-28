@@ -1,5 +1,7 @@
-all: test
+all: 	hashshare.js
 
+hashshare.js:
+	wget https://github.com/jncraton/hashshare/releases/download/v3.0.0/hashshare.js
 lint:
 	npx prettier@3.6.2 --check .
 	npx jshint@2.13.6
@@ -15,4 +17,4 @@ scheme.min.js: scheme.js
 	wc -c $@
 
 clean:
-	rm -f scheme.min.js
+	rm -f scheme.min.js hashshare.js

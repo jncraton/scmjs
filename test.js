@@ -116,3 +116,17 @@ expect(`
 
 (display (double 5))
 `).toBe(5)
+
+// cond
+expect(`
+(define (abs x)
+  (cond ((> x 0) x)
+        ((= x 0) 0)
+        ((< x 0) (- x))))
+
+(display (abs -3))
+(newline)
+(display (abs 3))
+(newline)
+(display (abs 0))
+`).toBe('3\n3\n0')

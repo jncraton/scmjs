@@ -19,6 +19,8 @@ A simple [Scheme](<https://en.wikipedia.org/wiki/Scheme_(programming_language)>)
     - [x] Procedures
   - [x] `display`
   - [x] `newline`
+  - [x] `cond`
+    - [ ] `else`
   - [x] `+`
   - [x] `-`
   - [x] `*`

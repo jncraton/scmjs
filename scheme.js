@@ -33,6 +33,13 @@ scheme.eval = src => {
       if (output === false) output = '#f'
       stdout += output
     },
+    cond(matches) {
+      for (match of matches) {
+        if (eval(match[0], this)) {
+          return eval(match[1], this)
+        }
+      }
+    },
     define(name, value) {
       if (Array.isArray(name)) {
         // This is a procedure definition
@@ -67,6 +74,8 @@ scheme.eval = src => {
 
     if (ast[0] == 'define') {
       return env[ast[0]](...ast.slice(1).map(e => +e || e))
+    } else if (ast[0] == 'cond') {
+      return env[ast[0]](ast.slice(1))
     } else if (typeof env[ast[0]] == 'function') {
       return env[ast[0]](...ast.slice(1).map(e => eval(e, env)))
     } else {

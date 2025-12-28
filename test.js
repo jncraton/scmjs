@@ -18,6 +18,21 @@ function expect(src) {
   }
 }
 
-expect('(display (+ 1 1)))').toBe(2)
-expect('(display ((+ 2 2))').toBe(4)
-expect('(display ((+ 2 (+ 1 2)))').toBe(5)
+// Basic addition
+expect('(display (+ 1 1))').toBe(2)
+expect('(display (+ 2 2))').toBe(4)
+
+// Nested expressions
+expect('(display (+ 2 (+ 1 2)))').toBe(5)
+expect('(display (+ (+ 2 3) (+ 4 5)))').toBe(14)
+
+// Multiple expressions
+expect(`
+(display (+ 1 1))
+(display (+ 1 1))`).toBe(22)
+
+// Define
+expect(`
+(define x 3)
+(display x)
+`).toBe(3)

@@ -24,13 +24,19 @@ scheme.eval = (src) => {
     '+': (a, b) => a + b,
     display: output => {
       stdout += output
+    },
+    define (name, value) {
+      this[name] = value
     }
   }
 
 
   const eval = (ast, env=globalEnv) => {
     if (typeof ast == 'string') {
-      return +ast
+      if (env[ast] !== undefined) {
+        return env[ast]
+      }
+      return ast.match(/\d+/) ? +ast : ast
     }
 
     if (typeof env[ast[0]] == 'function') {
@@ -40,7 +46,7 @@ scheme.eval = (src) => {
     }
   }
 
-  const tokens = [...src.matchAll(/([\(\)\+\-\*\\]|\d+|\w+)/g)].map(s => s[0])
+  const tokens = [...src.matchAll(/([\(\)\+\-\*\\]|\d+|\w+)/gm)].map(s => s[0])
   const ast = parse(tokens)
   const result = eval(ast)
 

@@ -130,3 +130,16 @@ expect(`
 (newline)
 (display (abs 0))
 `).toBe('3\n3\n0')
+
+// cond else
+expect(`
+(define (abs x)
+  (cond ((< x 0) (- x))
+        (else x)))
+
+(display (abs -3))
+(newline)
+(display (abs 3))
+(newline)
+(display (abs 0))
+`).toBe('3\n3\n0')

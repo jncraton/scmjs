@@ -7,3 +7,20 @@
 A simple [Scheme](<https://en.wikipedia.org/wiki/Scheme_(programming_language)>) interpreter in pure JavaScript
 
 [Playground](https://jncraton.github.io/scmjs/)
+
+## Supported Features
+
+- [x] Numeric values
+- Built-in functions
+  - [x] `define`
+    - [x] Numeric literals
+    - [x] Procedures
+  - [x] `display`
+  - [x] `newline`
+  - [x] `+`
+  - [ ] `-`
+  - [x] `*`
+  - [ ] `/`
+  - [x] `=`
+  - [x] `>`
+  - [x] `<`

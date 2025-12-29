@@ -2,7 +2,7 @@ const scheme = {}
 
 scheme.eval = src => {
   const parse = (tokens, tree = []) => {
-    let token = tokens.shift()
+    const token = tokens.shift()
 
     if (token == ')' || token === undefined) {
       return tree

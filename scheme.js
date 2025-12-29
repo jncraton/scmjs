@@ -4,11 +4,11 @@ scheme.eval = src => {
   const parse = (tokens, tree = []) => {
     let token = tokens.shift()
 
-    if (token == '(') {
+    if (token == ')' || token === undefined) {
+      return tree
+    } else if (token == '(') {
       tree.push(parse(tokens))
       return tree.concat(parse(tokens))
-    } else if (token == ')' || token === undefined) {
-      return tree
     } else {
       tree.push(token)
       return parse(tokens, tree)

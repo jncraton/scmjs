@@ -40,9 +40,7 @@ scheme.eval = src => {
       } else {
         this[name[0]] = function (...args) {
           const frame = Object.create(this)
-          name.slice(1).forEach((argName, i) => {
-            frame[argName] = ev(args[i], this)
-          })
+          name.slice(1).forEach((arg, i) => (frame[arg] = ev(args[i], this)))
 
           const result = ev(value, frame)
           return Array.isArray(result) ? result.at(-1) : result

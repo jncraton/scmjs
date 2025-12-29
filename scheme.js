@@ -28,11 +28,7 @@ scheme.eval = src => {
     newline: () => (stdout += '\n'),
     display: val => (stdout += { true: '#t', false: '#f' }[val] ?? val),
     cond: function (...matches) {
-      for (match of matches) {
-        if (this.eval(match[0])) {
-          return this.eval(match[1])
-        }
-      }
+      return this.eval(matches.find(e => this.eval(e[0]))[1])
     },
     define: function (name, value) {
       const isProcedure = Array.isArray(name)

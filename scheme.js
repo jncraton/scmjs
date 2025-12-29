@@ -1,6 +1,8 @@
 const scheme = {}
 
 scheme.eval = src => {
+  const lex = src => [...src.matchAll(/(\-?\d+|[\(\)\+\-\*\\\=\<\>]|\w+)/gm)].map(s => s[0])
+
   const parse = (tokens, tree = []) => {
     const token = tokens.shift()
 
@@ -59,7 +61,6 @@ scheme.eval = src => {
     }
   }
 
-  const tokens = [...src.matchAll(/(\-?\d+|[\(\)\+\-\*\\\=\<\>]|\w+)/gm)].map(s => s[0])
-  ev(parse(tokens))
+  ev(parse(lex(src)))
   return stdout
 }

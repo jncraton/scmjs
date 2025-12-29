@@ -62,11 +62,9 @@ scheme.eval = src => {
         this[name] = ev(value, this)
       } else {
         this[name[0]] = function (...args) {
-          args = args.map(a => ev(a, this))
-
           const frame = Object.create(this)
           name.slice(1).forEach((argName, i) => {
-            frame[argName] = args[i]
+            frame[argName] = ev(args[i], this)
           })
 
           const result = ev(value, frame)

@@ -24,7 +24,7 @@ scheme.eval = src => {
     '>': (a, b) => a > b,
     '<': (a, b) => a < b,
     newline: () => (stdout += '\n'),
-    display: output => (stdout += { true: '#t', false: '#f' }[output] ?? output),
+    display: val => (stdout += { true: '#t', false: '#f' }[val] ?? val),
     cond: function (...matches) {
       for (match of matches) {
         if (ev(match[0], this)) {

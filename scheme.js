@@ -57,7 +57,7 @@ scheme.eval = src => {
       } else {
         return ast.map(e => this.eval(e))
       }
-    }
+    },
   }
 
   globalEnv.eval(parse(lex(src)))

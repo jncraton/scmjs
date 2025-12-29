@@ -78,13 +78,8 @@ scheme.eval = src => {
 
   const ev = (ast, env = globalEnv) => {
     if (typeof ast == 'string') {
-      if (env[ast] !== undefined) {
-        return env[ast]
-      }
-      return ast.match(/\d+/) ? +ast : ast
-    }
-
-    if (typeof env[ast[0]] == 'function') {
+      return ast.match(/\d+/) ? +ast : (env[ast] ?? ast)
+    } else if (typeof env[ast[0]] == 'function') {
       return env[ast[0]](...ast.slice(1))
     } else {
       return ast.map(e => ev(e, env))

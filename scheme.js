@@ -29,8 +29,8 @@ scheme.eval = src => {
     display: val => (stdout += { true: '#t', false: '#f' }[val] ?? val),
     cond: function (...matches) {
       for (match of matches) {
-        if (ev(match[0], this)) {
-          return ev(match[1], this)
+        if (this.eval(match[0])) {
+          return this.eval(match[1])
         }
       }
     },
@@ -38,29 +38,28 @@ scheme.eval = src => {
       const isProcedure = Array.isArray(name)
 
       if (!isProcedure) {
-        this[name] = ev(value, this)
+        this[name] = this.eval(value)
       } else {
         this[name[0]] = function (...args) {
           const frame = Object.create(this)
-          name.slice(1).forEach((arg, i) => (frame[arg] = ev(args[i], this)))
+          name.slice(1).forEach((arg, i) => (frame[arg] = this.eval(args[i])))
 
-          const result = ev(value, frame)
+          const result = frame.eval(value)
           return Array.isArray(result) ? result.at(-1) : result
         }
       }
     },
-  }
-
-  const ev = (ast, env = globalEnv) => {
-    if (typeof ast == 'string') {
-      return ast.match(/\d+/) ? +ast : (env[ast] ?? ast)
-    } else if (typeof env[ast[0]] == 'function') {
-      return env[ast[0]](...ast.slice(1).map(e => (env[ast[0]].prototype ? e : ev(e, env))))
-    } else {
-      return ast.map(e => ev(e, env))
+    eval: function (ast) {
+      if (typeof ast == 'string') {
+        return ast.match(/\d+/) ? +ast : (this[ast] ?? ast)
+      } else if (typeof this[ast[0]] == 'function') {
+        return this[ast[0]](...ast.slice(1).map(e => (this[ast[0]].prototype ? e : this.eval(e))))
+      } else {
+        return ast.map(e => this.eval(e))
+      }
     }
   }
 
-  ev(parse(lex(src)))
+  globalEnv.eval(parse(lex(src)))
   return stdout
 }

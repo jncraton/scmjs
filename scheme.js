@@ -24,8 +24,7 @@ scheme.eval = src => {
     '>': (a, b) => a > b,
     '<': (a, b) => a < b,
     newline: () => (stdout += '\n'),
-    display: function (output) {
-      output = ev(output, this)
+    display: output => {
       if (output === true) output = '#t'
       if (output === false) output = '#f'
       stdout += output

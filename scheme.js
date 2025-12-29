@@ -17,41 +17,29 @@ scheme.eval = src => {
 
   let stdout = ''
   const globalEnv = {
-    ['+'](a, b) {
-      return ev(a, this) + ev(b, this)
-    },
-    ['-'](a, b) {
-      return b === undefined ? -ev(a, this) : ev(a, this) - ev(b, this)
-    },
-    ['*'](a, b) {
-      return ev(a, this) * ev(b, this)
-    },
-    ['='](a, b) {
-      return ev(a, this) == ev(b, this)
-    },
-    ['>'](a, b) {
-      return ev(a, this) > ev(b, this)
-    },
-    ['<'](a, b) {
-      return ev(a, this) < ev(b, this)
-    },
-    newline() {
+    '+': (a, b) => a + b,
+    '-': (a, b) => (b === undefined ? -a : a - b),
+    '*': (a, b) => a * b,
+    '=': (a, b) => a == b,
+    '>': (a, b) => a > b,
+    '<': (a, b) => a < b,
+    newline: function () {
       stdout += '\n'
     },
-    display(output) {
+    display: function (output) {
       output = ev(output, this)
       if (output === true) output = '#t'
       if (output === false) output = '#f'
       stdout += output
     },
-    cond(...matches) {
+    cond: function (...matches) {
       for (match of matches) {
         if (ev(match[0], this)) {
           return ev(match[1], this)
         }
       }
     },
-    define(name, value) {
+    define: function (name, value) {
       const isProcedure = Array.isArray(name)
 
       if (!isProcedure) {
@@ -74,7 +62,7 @@ scheme.eval = src => {
     if (typeof ast == 'string') {
       return ast.match(/\d+/) ? +ast : (env[ast] ?? ast)
     } else if (typeof env[ast[0]] == 'function') {
-      return env[ast[0]](...ast.slice(1))
+      return env[ast[0]](...ast.slice(1).map(e => (env[ast[0]].prototype ? e : ev(e, env))))
     } else {
       return ast.map(e => ev(e, env))
     }
